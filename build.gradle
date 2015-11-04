@@ -1,0 +1,20 @@
+dependencies {
+	compile project(':salix-core')
+	// Spring Thymeleaf
+	compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+	compile "org.thymeleaf:thymeleaf:3.0.0.BETA01"
+	compile "org.thymeleaf:thymeleaf-spring4:3.0.0.BETA01"
+	// The Neko parser library is required to run Thymeleaf in LEGACYHTML5 mode
+	compile 'net.sourceforge.nekohtml:nekohtml:1.9.15'
+	// allow thymeleaf to generate html from strings
+	compile 'commons-io:commons-io:2.4'
+	// java 8 date time formatting
+	//compile 'org.thymeleaf.extras:thymeleaf-extras-java8time:2.1.0.RELEASE'
+}
+
+springBoot {
+	mainClass = 'org.lukosan.salix.Application'
+}
+
+bintray.pkg.version.desc = 'Salix Thymeleaf module'
