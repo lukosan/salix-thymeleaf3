@@ -1,5 +1,5 @@
 dependencies {
-	compile project(':salix-core')
+	compile project(':salix-mvc')
 	// Spring Thymeleaf
 	compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
 	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
@@ -17,4 +17,4 @@ springBoot {
 	mainClass = 'org.lukosan.salix.Application'
 }
 
-bintray.pkg.version.desc = 'Salix Thymeleaf module'
+bintray.pkg.version.desc = 'Salix Thymeleaf 3 module'

@@ -8,11 +8,12 @@ import javax.servlet.Servlet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.lukosan.salix.SalixHandlerMapping;
+import org.lukosan.salix.SalixPublisher;
 import org.lukosan.salix.SalixScopeRegistry;
 import org.lukosan.salix.thymeleaf.SalixDialect;
 import org.lukosan.salix.thymeleaf.SalixTemplateResolver;
 import org.lukosan.salix.thymeleaf.SalixView;
+import org.lukosan.salix.thymeleaf.ThymeleafPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -56,7 +57,7 @@ public class ThymeleafAutoConfiguration {
 			return resolver;
 		}
 		
-		@Bean
+		@Bean // will be provided by spring boot in future
 		public ITemplateResolver defaultTemplateResolver() {
 			SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
 			resolver.setOrder(2);
@@ -88,18 +89,17 @@ public class ThymeleafAutoConfiguration {
 	public static class SalixHandlerMappingConfiguration {
 
 		@Bean
-		public SalixHandlerMapping salixHandlerMapping() {
-			return new SalixHandlerMapping();
+		public SalixPublisher thymeleafPublisher() {
+			return new ThymeleafPublisher();
 		}
 
 	}
 	
-	@Configuration
+	@Configuration // will be provided by spring boot in future
 	protected static class ThymeleafDefaultConfiguration {
 
 		@Autowired
-		private final Collection<ITemplateResolver> templateResolvers = Collections
-				.emptySet();
+		private final Collection<ITemplateResolver> templateResolvers = Collections.emptySet();
 
 		@Autowired(required = false)
 		private final Collection<IDialect> dialects = Collections.emptySet();
@@ -120,7 +120,7 @@ public class ThymeleafAutoConfiguration {
 
 	@Configuration
 	@ConditionalOnClass({ Servlet.class })
-	@ConditionalOnWebApplication
+	@ConditionalOnWebApplication // will be provided by spring boot in future
 	protected static class ThymeleafViewResolverConfiguration {
 
 		@Autowired
