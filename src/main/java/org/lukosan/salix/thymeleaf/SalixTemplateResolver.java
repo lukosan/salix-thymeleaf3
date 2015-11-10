@@ -3,9 +3,8 @@ package org.lukosan.salix.thymeleaf;
 import java.util.Map;
 
 import org.lukosan.salix.SalixProperties;
-import org.lukosan.salix.SalixScope;
-import org.lukosan.salix.SalixService;
 import org.lukosan.salix.SalixTemplate;
+import org.lukosan.salix.mvc.SalixServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.templateresolver.AbstractConfigurableTemplateResolver;
@@ -18,7 +17,7 @@ public class SalixTemplateResolver extends AbstractConfigurableTemplateResolver 
 	private SalixProperties salixProperties;
 	
 	@Autowired
-	private SalixService salixService;
+	private SalixServiceProxy salixService;
 
 	@Override
 	protected ITemplateResource computeTemplateResource(IEngineConfiguration configuration, String ownerTemplate, String template,
@@ -29,8 +28,6 @@ public class SalixTemplateResolver extends AbstractConfigurableTemplateResolver 
 		if(salixProperties.isMultisite() && templateResolutionAttributes.containsKey(SalixContext.SCOPE)) {
 			String scope = templateResolutionAttributes.get(SalixContext.SCOPE).toString();
 			salixTemplate = salixService.template(template, scope);
-			if(null == salixTemplate)
-				salixTemplate = salixService.template(template, SalixScope.SHARED);
 		} else
 			salixTemplate = salixService.template(template);
 			

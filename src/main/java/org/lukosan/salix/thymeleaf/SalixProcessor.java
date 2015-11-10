@@ -4,7 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import org.lukosan.salix.MapUtils;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,4 +34,14 @@ public class SalixProcessor extends StandardEvaluationContext {
 			return map.toString();
 		}
 	}
+	
+	public String safe(Map<String, Object> map, String expression) {
+		return MapUtils.getString(map, expression);
+	}
+
+	public String safe(Map<String, Object> map, String expression, String defaultValue) {
+		String value = MapUtils.getString(map, expression);
+		return StringUtils.hasText(value) ? value : defaultValue;
+	}
+
 }
