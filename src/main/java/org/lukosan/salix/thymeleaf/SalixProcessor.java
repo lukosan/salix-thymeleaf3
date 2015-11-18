@@ -8,17 +8,8 @@ import org.lukosan.salix.MapUtils;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class SalixProcessor extends StandardEvaluationContext {
 
-	private static final ObjectMapper MAPPER = new ObjectMapper();
-
-	static {
-		MAPPER.findAndRegisterModules();
-	}
-	
 	public String urlEncode(String href) {
 		try {
 			return URLEncoder.encode(href, "utf8");
@@ -28,11 +19,7 @@ public class SalixProcessor extends StandardEvaluationContext {
 	}
 	
 	public String json(Map<String, Object> map) {
-		try {
-			return MAPPER.writeValueAsString(map);
-		} catch (JsonProcessingException e) {
-			return map.toString();
-		}
+		return MapUtils.asString(map);
 	}
 	
 	public String safe(Map<String, Object> map, String expression) {
