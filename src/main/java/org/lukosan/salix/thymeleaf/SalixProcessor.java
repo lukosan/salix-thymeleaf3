@@ -19,15 +19,15 @@ public class SalixProcessor extends StandardEvaluationContext {
 	}
 	
 	public String json(Map<String, Object> map) {
-		return MapUtils.asString(map);
+		return null == map ? "" : MapUtils.asString(map);
 	}
 	
 	public String safe(Map<String, Object> map, String expression) {
-		return MapUtils.getString(map, expression);
+		return null == map ? "" : MapUtils.getString(map, expression);
 	}
 
 	public String safe(Map<String, Object> map, String expression, String defaultValue) {
-		String value = MapUtils.getString(map, expression);
+		String value = null == map ? "" : MapUtils.getString(map, expression);
 		return StringUtils.hasText(value) ? value : defaultValue;
 	}
 
