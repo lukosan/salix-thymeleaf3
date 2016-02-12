@@ -52,7 +52,7 @@ public class ThymeleafAutoConfiguration {
 			resolver.setPrefix("");
 			resolver.setSuffix("");
 			resolver.setTemplateMode(this.properties.getMode());
-			resolver.setCharacterEncoding(this.properties.getEncoding());
+			resolver.setCharacterEncoding(this.properties.getEncoding().name());
 			resolver.setCacheable(true);
 			return resolver;
 		}
@@ -64,7 +64,7 @@ public class ThymeleafAutoConfiguration {
 			resolver.setPrefix(this.properties.getPrefix());
 			resolver.setSuffix(this.properties.getSuffix());
 			resolver.setTemplateMode(this.properties.getMode());
-			resolver.setCharacterEncoding(this.properties.getEncoding());
+			resolver.setCharacterEncoding(this.properties.getEncoding().name());
 			resolver.setCacheable(this.properties.isCache());
 			return resolver;
 		}
@@ -135,8 +135,9 @@ public class ThymeleafAutoConfiguration {
 		public ThymeleafViewResolver thymeleafViewResolver() {
 			ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 			resolver.setTemplateEngine(this.templateEngine);
-			resolver.setCharacterEncoding(this.properties.getEncoding());
-			resolver.setContentType(appendCharset(this.properties.getContentType(), resolver.getCharacterEncoding()));
+			resolver.setCharacterEncoding(this.properties.getEncoding().name());
+			resolver.setContentType(appendCharset(this.properties.getContentType().getType() + "/" + this.properties.getContentType().getSubtype(), resolver.getCharacterEncoding()));
+			//resolver.setContentType(this.properties.getContentType().getType()); // XXX test this!
 			resolver.setExcludedViewNames(this.properties.getExcludedViewNames());
 			resolver.setViewNames(this.properties.getViewNames());
 			resolver.setViewClass(SalixView.class);

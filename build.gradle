@@ -4,7 +4,11 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
 	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 	compile "org.thymeleaf:thymeleaf:3.0.0.BETA01"
-	compile "org.thymeleaf:thymeleaf-spring4:3.0.0.BETA01"
+	// this would pull in thymeleaf:2.4.1 as it's the "latest" version (through the "update" mechanism)
+	compile ("org.thymeleaf:thymeleaf-spring4:3.0.0.BETA01") {
+		exclude group: "org.thymeleaf", module: "thymeleaf"
+	}
+	
 	// The Neko parser library is required to run Thymeleaf in LEGACYHTML5 mode
 	compile 'net.sourceforge.nekohtml:nekohtml:1.9.15'
 	// allow thymeleaf to generate html from strings
